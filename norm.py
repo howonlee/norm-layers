@@ -4,7 +4,8 @@ import numpy.random as npr
 # first do L2 norm, then do L1 norm...
 
 def l2_norm(var):
-    return var / var.sum()
+    norm = np.sqrt(np.sum(np.square(var)))
+    return var / norm
 
 def dl2_norm(var):
     return (var.sum() - (var ** 2)) / (var.sum() ** 2)
