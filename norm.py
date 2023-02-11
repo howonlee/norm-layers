@@ -8,7 +8,10 @@ def l2_norm(var):
     return var / norm
 
 def dl2_norm(var):
-    return (var.sum() - (var ** 2)) / (var.sum() ** 2)
+    pass
+
+def numerical_jacobian(var):
+    pass
 
 if __name__ == "__main__":
     npr.seed(1337)
