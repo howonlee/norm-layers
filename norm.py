@@ -8,6 +8,19 @@ def l2_norm(var):
     return var / norm
 
 def dl2_norm(var):
+    ### get it from chainer
+    pass
+
+def l1_norm(var):
+    #####
+    #####
+    #####
+    pass
+
+def dl1_norm(var):
+    #####
+    #####
+    #####
     pass
 
 def putative_vjp(fn, var, h):
