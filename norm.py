@@ -20,11 +20,11 @@ def l1_norm(var):
 def dl1_norm(var, dout):
     norm = np.sum(var)
     var_dout_reduced = np.sum(var * dout)
-    var_dout_reduced /= norm
-    return (((dout * norm) - (var_dout_reduced * var)) / (norm ** 2))
+    return ((dout) - (var_dout_reduced)) / (norm ** 2)
 
 def putative_vjp(fn, var, h):
-    return (fn(var + h) - fn(var - h)) / (2 * h)
+    res = (fn(var + h) - fn(var - h)) / (2 * h)
+    return res
 
 if __name__ == "__main__":
     npr.seed(1337)
