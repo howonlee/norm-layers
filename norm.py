@@ -10,8 +10,8 @@ def l2_norm(var):
 def dl2_norm(var):
     pass
 
-def numerical_jacobian(var):
-    pass
+def putative_vjp(fn, var, h):
+    return (fn(var + h) - fn(var - h)) / (2 * h)
 
 if __name__ == "__main__":
     npr.seed(1337)
@@ -19,4 +19,4 @@ if __name__ == "__main__":
     h = np.zeros(100) + 1e-3
     print(l2_norm(init))
     print(dl2_norm(init))
-    print((l2_norm(init + h) - l2_norm(init - h)) / (2 * h))
+    print(putative_vjp(l2_norm, init, h))
