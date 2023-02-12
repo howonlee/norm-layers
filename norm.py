@@ -11,7 +11,7 @@ def dl2_norm(var, dout):
     norm = np.sqrt(np.sum(np.square(var)))
     var_dout_reduced = np.sum(var * dout)
     var_dout_reduced /= norm
-    return (((dout * norm) - (var_dout_reduced * var)) / (norm ** 2))
+    return (((dout * norm) - (var * var_dout_reduced)) / (norm ** 2))
 
 def l1_norm(var):
     norm = np.sum(var)
@@ -19,8 +19,8 @@ def l1_norm(var):
 
 def dl1_norm(var, dout):
     norm = np.sum(var)
-    var_dout_reduced = np.sum(var * dout)
-    return ((dout) - (var_dout_reduced)) / (norm ** 2)
+    var_dout_reduced = np.sum(dout)
+    return ((dout * norm) - (var * var_dout_reduced)) / (norm ** 2)
 
 def putative_vjp(fn, var, h):
     res = (fn(var + h) - fn(var - h)) / (2 * h)
