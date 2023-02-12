@@ -1,8 +1,6 @@
 import numpy as np
 import numpy.random as npr
 
-# first do L2 norm, then do L1 norm...
-
 def l2_norm(var):
     norm = np.sqrt(np.sum(np.square(var)))
     return var / norm
