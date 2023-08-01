@@ -49,6 +49,8 @@ if __name__ == "__main__":
 
     vjp = putative_vjp(l1_norm_1d, init, h)
 
+    print(init)
+    print("=============")
     print(norm_res)
     print("=============")
     print("=============")
