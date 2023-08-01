@@ -11,11 +11,11 @@ def dl2_norm(var, dout):
     var_dout_reduced /= norm
     return (((dout * norm) - (var * var_dout_reduced)) / (norm ** 2))
 
-def l1_norm(var):
+def l1_norm_1d(var):
     norm = np.sum(var)
     return var / norm
 
-def dl1_norm(var, dout):
+def dl1_norm_1d(var, dout):
     norm = np.sum(var)
     var_dout_reduced = np.sum(dout)
     return ((dout * norm) - (var * var_dout_reduced)) / (norm ** 2)
@@ -41,18 +41,15 @@ def dcos(var, dout):
 
 if __name__ == "__main__":
     npr.seed(1337)
-    init = npr.rand(100, 100)
-    h = np.zeros((100, 100)) + 1e-4
-    dout = np.ones((100, 100))
+    init = npr.rand(100) * 1000
+    h = np.zeros(100) + 1e-4
+    dout = np.ones(100)
 
-    norm_res = dl1_norm_2d(init, dout)
+    norm_res = dl1_norm_1d(init, dout)
 
-    vjp = putative_vjp(l1_norm_2d, init, h)
+    vjp = putative_vjp(l1_norm_1d, init, h)
 
     print(norm_res)
     print("=============")
     print("=============")
     print(vjp)
-    print("=============")
-    print("=============")
-    print(norm_res - vjp)
