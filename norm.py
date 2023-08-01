@@ -20,20 +20,39 @@ def dl1_norm(var, dout):
     var_dout_reduced = np.sum(dout)
     return ((dout * norm) - (var * var_dout_reduced)) / (norm ** 2)
 
+def l1_norm_2d(var):
+    norm = np.sum(var, axis=0)
+    return var / norm
+
+def dl1_norm_2d(var, dout):
+    norm = np.sum(var, axis=0)
+    var_dout_reduced = np.sum(dout, axis=0)
+    return ((dout * norm) - (var * var_dout_reduced)) / (norm ** 2)
+
 def putative_vjp(fn, var, h):
     res = (fn(var + h) - fn(var - h)) / (2 * h)
     return res
 
+def cos(var):
+    return np.cos(var)
+
+def dcos(var, dout):
+    return dout * -np.sin(var)
+
 if __name__ == "__main__":
     npr.seed(1337)
-    init = npr.rand(100)
-    h = np.zeros(100) + 1e-3
-    print(l2_norm(init))
-    print(dl2_norm(init, np.ones(100)))
-    print(putative_vjp(l2_norm, init, h))
+    init = npr.rand(100, 100)
+    h = np.zeros((100, 100)) + 1e-4
+    dout = np.ones((100, 100))
+
+    norm_res = dl1_norm_2d(init, dout)
+
+    vjp = putative_vjp(l1_norm_2d, init, h)
+
+    print(norm_res)
     print("=============")
     print("=============")
+    print(vjp)
     print("=============")
-    
-    print(dl1_norm(init, np.ones(100)))
-    print(putative_vjp(l1_norm, init, h))
+    print("=============")
+    print(norm_res - vjp)
