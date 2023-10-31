@@ -4,6 +4,18 @@ from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor
 
+#####
+#####
+##### 1d norm thing
+#####
+#####
+
+#####
+#####
+##### 2d norm thing
+#####
+#####
+
 class NormNN(nn.Module):
     def __init__(self):
         super().__init__()
