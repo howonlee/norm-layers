@@ -24,7 +24,7 @@ def dl1_norm_1d(var, dout):
 def dl1_norm_1d_weird(var, dout):
     norm = np.sum(var)
     var_dout_reduced = np.sum(dout)
-    return ((dout * norm) - (var * var_dout_reduced))
+    return ((dout * norm) - (var * var_dout_reduced)) / (norm ** 2)
 
 def l1_norm_2d(var):
     norm = np.sum(var, axis=0)
@@ -47,7 +47,7 @@ def dcos(var, dout):
 
 if __name__ == "__main__":
     npr.seed(1337)
-    init = np.abs(npr.rand(100)) / 10
+    init = np.abs(npr.rand(100))
     init2 = init * 100
     h = np.zeros(100) + 1e-4
     dout = npr.rand(100)
@@ -64,10 +64,9 @@ if __name__ == "__main__":
     print(init2)
     print("=============")
     print("=============")
+    print(np.std(norm_res))
+    print("=============")
     print(norm_res)
     print("=============")
-    print("=============")
-    print(norm_res2)
-
-    plt.plot(norm_res)
-    plt.show()
+    print(norm_res / np.std(norm_res))
+    print(np.std(norm_res / np.std(norm_res)))
